@@ -26,6 +26,32 @@ public class PacmanServidor implements Pacman {
         agregarJugadorATablero(jugador);
         return jugador.getId();
     }
+    
+    public int[] obtenerManzanasEstado(int id){
+        int n[] = new int[3];
+        for(int i=0;i<jugadores.size();i++){
+            if(jugadores.get(i).getId()==id){
+                n[0]=jugadores.get(i).getManzanasComidas();
+            }
+        }    
+        n[1] =  tablero.getManzanas();
+        n[2] = getMaxManzanasJugador();
+        return n;
+    }
+    
+    private int getMaxManzanasJugador(){
+        int mayor = -1;
+        for(int i=0;i<jugadores.size();i++){
+            if(mayor==-1){
+                mayor = jugadores.get(i).getManzanasComidas();
+            }else{
+                if(jugadores.get(i).getManzanasComidas()>mayor){
+                    mayor = jugadores.get(i).getManzanasComidas();
+                }
+            }
+        }   
+        return mayor;
+    } 
 
     public void movimientoPacman(int id, String mov) {
         Jugador tmp = null;
@@ -41,6 +67,7 @@ public class PacmanServidor implements Pacman {
         if(mov.equals("up")){
             if(tablero.getTablero()[posx-1][posy]=='■'){
                 tmp.addManzanasComidas();  
+                tablero.reducirManzana();
             }
             tablero.getTablero()[posx][posy]=(char)32;
             tablero.getTablero()[posx-1][posy]='V';
@@ -50,6 +77,7 @@ public class PacmanServidor implements Pacman {
         }else if(mov.equals("down")){
             if(tablero.getTablero()[posx+1][posy]=='■'){
                 tmp.addManzanasComidas();  
+                tablero.reducirManzana();
             }
             tablero.getTablero()[posx][posy]=(char)32;
             tablero.getTablero()[posx+1][posy]='V';
@@ -59,6 +87,7 @@ public class PacmanServidor implements Pacman {
         }else if(mov.equals("right")){
             if(tablero.getTablero()[posx][posy+1]=='■'){
                 tmp.addManzanasComidas();  
+                tablero.reducirManzana();
             }
             tablero.getTablero()[posx][posy]=(char)32;
             tablero.getTablero()[posx][posy+1]='V';
@@ -68,6 +97,7 @@ public class PacmanServidor implements Pacman {
         }else if(mov.equals("left")){
             if(tablero.getTablero()[posx][posy-1]=='■'){
                 tmp.addManzanasComidas();  
+                tablero.reducirManzana();
             }
             tablero.getTablero()[posx][posy]=(char)32;
             tablero.getTablero()[posx][posy-1]='V';
@@ -75,6 +105,23 @@ public class PacmanServidor implements Pacman {
             cords.setXY(posx, posy-1);
             tmp.setPos(cords);
         }
+    }
+    
+    public int getIDMejorJugador(){
+        int mayor = -1;
+        int id=0;
+        for(int i=0;i<jugadores.size();i++){
+            if(mayor==-1){
+                mayor = jugadores.get(i).getManzanasComidas();
+                id=jugadores.get(i).getId();
+            }else{
+                if(jugadores.get(i).getManzanasComidas()>mayor){
+                    mayor = jugadores.get(i).getManzanasComidas();
+                    id=jugadores.get(i).getId();
+                }
+            }
+        }   
+        return id;
     }
 
     public char[][] obtenerEstado() {

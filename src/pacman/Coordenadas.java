@@ -12,8 +12,6 @@ package pacman;
 public class Coordenadas {
     int x;
     int y;
-    
-    
 
     public Coordenadas() {
     }

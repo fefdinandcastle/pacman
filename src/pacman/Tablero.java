@@ -13,19 +13,29 @@ import java.util.Random;
  */
 public class Tablero {
     private char[][] tablero = new char[Variables.sizeX][Variables.sizeY];
+    private int manzanasCont;
 
     public Tablero() {
-        inicializarTablero();
+        manzanasCont=0;
+        inicializarTablero();   
     }
 
     public char[][] getTablero() {
         return tablero;
     }
     
+    public void reducirManzana(){
+        manzanasCont--;
+    }
+    
+    public int getManzanas(){
+        return manzanasCont;
+    }
+    
     
     public void inicializarTablero(){
         int maxManzanas = Variables.manzanasCount;
-        int manzanasCont = 0;
+        manzanasCont = 0;
         boolean bool = false;
         Random rand = new Random();
         for(int i=0;i<Variables.sizeX;i++){

@@ -12,5 +12,5 @@ package pacman;
 public class Variables {
     public static int sizeX = 15;
     public static int sizeY = 15;
-    public static int manzanasCount = 5;
+    public static int manzanasCount = 10;
 }
