@@ -12,13 +12,23 @@ import java.util.Random;
  * @author night
  */
 public class Jugador {
-    Coordenadas pos = new Coordenadas();
-    int manzanasComidas;
+    private Coordenadas pos = new Coordenadas();
+    private int manzanasComidas;
+    private int id;
 
     public Jugador() {
         Random rand = new Random();
-        pos.setXY(rand.nextInt(Variables.sizeX), rand.nextInt(50));
+        pos.setXY(rand.nextInt(Variables.sizeX), rand.nextInt(Variables.sizeY));
+        id = rand.nextInt((9999 - 1000) + 1) + 1000;
         manzanasComidas = 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setPos(Coordenadas pos) {

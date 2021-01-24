@@ -12,7 +12,7 @@ import java.util.Random;
  * @author night
  */
 public class Tablero {
-    char[][] tablero = new char[Variables.sizeX][Variables.sizeY];
+    private char[][] tablero = new char[Variables.sizeX][Variables.sizeY];
 
     public Tablero() {
         inicializarTablero();

@@ -6,10 +6,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import pacman.Jugador;
+import pacman.Tablero;
 import pacman.Variables;
 
 public class PacmanServidor implements Pacman {
-    ArrayList<Jugador> jugadores;
+    static Tablero tablero;
+    ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
     public PacmanServidor() {}
 
     public int suma(int a, int b) {
@@ -18,8 +20,10 @@ public class PacmanServidor implements Pacman {
     }
             
     public int nuevoJugador(){
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return 1;
+        Jugador jugador = new Jugador();
+        jugadores.add(jugador);
+        agregarJugadorATablero(jugador);
+        return jugador.getId();
     }
 
     public void movimientoPacman(int id, ArrayList pos) {
@@ -27,8 +31,7 @@ public class PacmanServidor implements Pacman {
     }
 
     public char[][] obtenerEstado() {
-        char[][] xd= new char[Variables.sizeX][Variables.sizeY];
-        return xd;
+        return tablero.getTablero();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
     }   
@@ -38,7 +41,7 @@ public class PacmanServidor implements Pacman {
         try {
             PacmanServidor obj = new PacmanServidor();
             Pacman stub = (Pacman) UnicastRemoteObject.exportObject(obj, 0);
-
+            tablero = new Tablero();
             // Agrega el stud del objeto remoto al registro RMI
             Registry registry = LocateRegistry.getRegistry();
             registry.bind("pacman", stub);
@@ -49,6 +52,12 @@ public class PacmanServidor implements Pacman {
             e.printStackTrace();
         }
     } // Fin del main
+    
+    public void agregarJugadorATablero(Jugador jugador){
+        tablero.getTablero()[jugador.getPos().getX()][jugador.getPos().getY()] = 'V';
+    }
+    
+   
 
     
 } // Fin de la clase
