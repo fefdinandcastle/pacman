@@ -12,7 +12,7 @@ import java.util.Random;
  * @author night
  */
 public class Tablero {
-    char[][] tablero = new char[40][40];
+    char[][] tablero = new char[Variables.sizeX][Variables.sizeY];
 
     public Tablero() {
         inicializarTablero();
@@ -24,14 +24,14 @@ public class Tablero {
     
     
     public void inicializarTablero(){
-        int maxManzanas = 50;
+        int maxManzanas = Variables.manzanasCount;
         int manzanasCont = 0;
         boolean bool = false;
         Random rand = new Random();
-        for(int i=0;i<40;i++){
-            for(int j=0;j<40;j++){
+        for(int i=0;i<Variables.sizeX;i++){
+            for(int j=0;j<Variables.sizeY;j++){
                 if(manzanasCont<maxManzanas){
-                    bool = (rand.nextInt(30) == 0) ? true : false; //%20
+                    bool = (rand.nextInt(40) == 0) ? true : false; //%20
                     if(bool){
                         tablero[i][j]='■';
                         manzanasCont++;

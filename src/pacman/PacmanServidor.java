@@ -5,8 +5,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import pacman.Jugador;
+import pacman.Variables;
 
 public class PacmanServidor implements Pacman {
+    ArrayList<Jugador> jugadores;
     public PacmanServidor() {}
 
     public int suma(int a, int b) {
@@ -24,7 +27,7 @@ public class PacmanServidor implements Pacman {
     }
 
     public char[][] obtenerEstado() {
-        char[][] xd= new char[40][40];
+        char[][] xd= new char[Variables.sizeX][Variables.sizeY];
         return xd;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         
@@ -38,7 +41,7 @@ public class PacmanServidor implements Pacman {
 
             // Agrega el stud del objeto remoto al registro RMI
             Registry registry = LocateRegistry.getRegistry();
-            registry.bind("Pacman", stub);
+            registry.bind("pacman", stub);
             System.err.println("PacmanServidor lista!");
         // FIN del try 
         } catch (Exception e) {

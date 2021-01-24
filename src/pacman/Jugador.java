@@ -17,7 +17,7 @@ public class Jugador {
 
     public Jugador() {
         Random rand = new Random();
-        pos.setXY(rand.nextInt(50), rand.nextInt(50));
+        pos.setXY(rand.nextInt(Variables.sizeX), rand.nextInt(50));
         manzanasComidas = 0;
     }
 
