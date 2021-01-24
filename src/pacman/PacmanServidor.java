@@ -5,6 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import pacman.Coordenadas;
 import pacman.Jugador;
 import pacman.Tablero;
 import pacman.Variables;
@@ -26,8 +27,54 @@ public class PacmanServidor implements Pacman {
         return jugador.getId();
     }
 
-    public void movimientoPacman(int id, ArrayList pos) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void movimientoPacman(int id, String mov) {
+        Jugador tmp = null;
+        int posx=0;
+        int posy=0;
+        for(int i=0;i<jugadores.size();i++){
+            if(jugadores.get(i).getId()==id){
+                tmp = jugadores.get(i); 
+            }
+        }
+        posx = tmp.getPos().getX();
+        posy = tmp.getPos().getY();
+        if(mov.equals("up")){
+            if(tablero.getTablero()[posx-1][posy]=='■'){
+                tmp.addManzanasComidas();  
+            }
+            tablero.getTablero()[posx][posy]=(char)32;
+            tablero.getTablero()[posx-1][posy]='V';
+            Coordenadas cords = new Coordenadas();
+            cords.setXY(posx-1, posy);
+            tmp.setPos(cords);
+        }else if(mov.equals("down")){
+            if(tablero.getTablero()[posx+1][posy]=='■'){
+                tmp.addManzanasComidas();  
+            }
+            tablero.getTablero()[posx][posy]=(char)32;
+            tablero.getTablero()[posx+1][posy]='V';
+            Coordenadas cords = new Coordenadas();
+            cords.setXY(posx+1, posy);
+            tmp.setPos(cords);
+        }else if(mov.equals("right")){
+            if(tablero.getTablero()[posx][posy+1]=='■'){
+                tmp.addManzanasComidas();  
+            }
+            tablero.getTablero()[posx][posy]=(char)32;
+            tablero.getTablero()[posx][posy+1]='V';
+            Coordenadas cords = new Coordenadas();
+            cords.setXY(posx, posy+1);
+            tmp.setPos(cords);
+        }else if(mov.equals("left")){
+            if(tablero.getTablero()[posx][posy-1]=='■'){
+                tmp.addManzanasComidas();  
+            }
+            tablero.getTablero()[posx][posy]=(char)32;
+            tablero.getTablero()[posx][posy-1]='V';
+            Coordenadas cords = new Coordenadas();
+            cords.setXY(posx, posy-1);
+            tmp.setPos(cords);
+        }
     }
 
     public char[][] obtenerEstado() {

@@ -13,7 +13,7 @@ public interface Pacman extends Remote
 
    public int nuevoJugador() throws RemoteException;
 
-   public void movimientoPacman(int id, ArrayList pos) throws RemoteException;
+   public void movimientoPacman(int id, String mov) throws RemoteException;
 
    public char[][] obtenerEstado() throws RemoteException;
 

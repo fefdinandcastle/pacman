@@ -5,6 +5,11 @@
  */
 package pacman;
 
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JPanel;
+
 /**
  *
  * @author night
@@ -18,8 +23,85 @@ public class Juego extends javax.swing.JFrame {
      */
     public Juego() {
         initComponents();
+        this.getContentPane().add(new GamePanel());
     }
+    
+    public class GamePanel extends JPanel {
 
+        private int xCoordinate = 200; // 小精靈初始位置
+        private int yCoordinate = 200;
+        boolean key_right, key_left, key_down, key_up; // Input booleans
+
+
+        public GamePanel() {
+            this.setFocusable(true); // 取得焦點, 否則KeyListener會無作用
+            addKeyListener(new GameInput()); // Add it to the JPanel
+        }
+
+
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            
+            if (key_down) {
+                System.out.print("Press down\n");
+            }
+
+            if (key_up) {
+                System.out.print("Press up\n");
+            }
+
+            // 往右
+            if (key_right) {
+                System.out.print("Press right\n");
+            }
+
+            // 左
+            if (key_left) {
+                System.out.print("Press left\n");
+            }
+
+            repaint();
+        }
+
+        private class GameInput implements KeyListener {
+
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == e.VK_DOWN) {
+                    key_down = false;
+                }
+                if (e.getKeyCode() == e.VK_UP) {
+                    key_up = false;
+                }
+                if (e.getKeyCode() == e.VK_RIGHT) {
+                    key_right = false;
+                }
+                if (e.getKeyCode() == e.VK_LEFT) {
+                    key_left = false;
+                }
+            }
+
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == e.VK_DOWN) {
+                    key_down = true;
+                }
+                if (e.getKeyCode() == e.VK_UP) {
+                    key_up = true;
+                }
+                if (e.getKeyCode() == e.VK_RIGHT) {
+                    key_right = true;
+                }
+                if (e.getKeyCode() == e.VK_LEFT) {
+                    key_left = true;
+                }
+            }
+
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,30 +111,30 @@ public class Juego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         pantalla = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pantalla.setColumns(20);
         pantalla.setRows(5);
-        jScrollPane1.setViewportView(pantalla);
+        jScrollPane2.setViewportView(pantalla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -94,7 +176,7 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextArea pantalla;
     // End of variables declaration//GEN-END:variables
 }

@@ -39,8 +39,8 @@ public class Jugador {
         return pos;
     }
 
-    public void setManzanasComidas(int manzanasComidas) {
-        this.manzanasComidas = manzanasComidas;
+    public void addManzanasComidas() {
+        this.manzanasComidas+=1;
     }
 
     public int getManzanasComidas() {

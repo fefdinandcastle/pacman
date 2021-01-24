@@ -10,7 +10,7 @@ package pacman;
  * @author night
  */
 public class Variables {
-    public static int sizeX = 25;
-    public static int sizeY = 250;
-    public static int manzanasCount = 100;
+    public static int sizeX = 15;
+    public static int sizeY = 15;
+    public static int manzanasCount = 5;
 }

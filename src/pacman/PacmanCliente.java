@@ -5,7 +5,7 @@ import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
-import pacman.Juego;
+import java.util.Scanner;
 import pacman.Tablero;
 import pacman.Variables;
 
@@ -26,10 +26,15 @@ public class PacmanCliente {
             char[][] tablero = stub.obtenerEstado();
             System.out.println("Hola Jugador: "+userID);
             System.out.println(resultado);
-            //juego = new Juego();
-            //juego.setVisible(true);
+            Scanner sc = new Scanner(System.in);  // Create a Scanner object
+            System.out.println("Entra movimiento");
+
+            String mov = sc.nextLine(); 
             while(true){
-                sleep(10);
+                System.out.println("Entra movimiento (up,down,right,left");
+                mov = sc.nextLine();
+                stub.movimientoPacman(userID, mov);
+                tablero = stub.obtenerEstado();
                 actualizarPantalla(tablero);
             }
         } catch (Exception e) {
@@ -39,8 +44,10 @@ public class PacmanCliente {
     }
     
     public static void actualizarPantalla(char[][] t) throws IOException{
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        //final String ANSI_CLS = "\u001b[2J";
+        //final String ANSI_HOME = "\u001b[H";
+        //System.out.print(ANSI_CLS + ANSI_HOME);
+        //System.out.flush();
         //imprimirTablero(tablero.getTablero());
         for(int i=0;i<Variables.sizeX;i++){
             for(int j=0;j<Variables.sizeY;j++){
