@@ -62,6 +62,7 @@ public class PacmanCliente {
         //System.out.print(ANSI_CLS + ANSI_HOME);
         //System.out.flush();
         //imprimirTablero(tablero.getTablero());
+        System.out.print("\n");
         for(int i=0;i<Variables.sizeX;i++){
             for(int j=0;j<Variables.sizeY;j++){
                 System.out.print(t[i][j]);
